@@ -27,8 +27,8 @@ func initRouter(r *gin.Engine) {
 	// extra apis - I 进阶接口1
 	apiRouter.POST("/favorite/action/", middlewares.JWTAuthMiddleware(), controller.FavoriteAction) //点赞操作
 	apiRouter.GET("/favorite/list/", middlewares.JWTAuthMiddleware(), controller.FavoriteList)      //收藏列表
-	apiRouter.POST("/comment/action/", controller.CommentAction)
-	apiRouter.GET("/comment/list/", controller.CommentList)
+	apiRouter.POST("/comment/action/", controller.CommentAction)                                    //点赞动作
+	apiRouter.GET("/comment/list/", controller.CommentList)                                         //评论列表
 
 	// extra apis - II 进阶接口2
 	apiRouter.POST("/relation/action/", controller.RelationAction)

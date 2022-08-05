@@ -46,7 +46,7 @@ type User struct {
 }
 
 // UserLike 用户点赞视频关系
-type UserLike struct {
+type User_favorite_video struct {
 	User_id  int64 `json:"user_id",omitempty`
 	Video_id int64 `json:"video_id",omitempty`
 }

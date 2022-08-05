@@ -65,9 +65,9 @@ func Login(c *gin.Context) {
 	password := c.Query("password")
 
 	user := new(models.User)
-	result := mysql.DB.First(&user, "name = ? AND password = ?", username, password)
+	result := mysql.DB.First(user, "name = ? AND password = ?", username, password)
 
-	if result.RowsAffected == 0 {
+	if result.RowsAffected != 0 {
 		//存在
 		//登录重新给一个token
 		token, err := jwt.GenRegisteredClaims(username)

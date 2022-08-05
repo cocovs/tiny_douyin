@@ -17,8 +17,14 @@ type FeedResponse struct {
 	NextTime int64 `json:"next_time,omitempty"`
 }
 
+// FavoriteRelation 点赞关系在user_favorite_video 表中查找用户点赞视频的关系
+func FavoriteRelation() {
+
+}
+
 //投稿时间倒叙，从最近的开始30个视频
 //该视频列中发布最早的视频时间 作为下次视频列表的最近时间
+//获取视频 对于是否点赞 应该在返回时搜索  user_favorite_video表 中该用户是否点赞
 // 视频流
 func Feed(c *gin.Context) {
 	latest_time, _ := strconv.ParseInt(c.Query("latest_time"), 10, 64)

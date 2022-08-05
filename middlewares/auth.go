@@ -3,6 +3,7 @@ package middlewares
 //用户登录以后
 //auth 身份验证
 import (
+	"fmt"
 	"github.com/cocovs/tiny-douyin/pkg/jwt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -34,7 +35,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
-
+		fmt.Println("token  ->> mc.Username: ", mc.Username)
 		// 将当前请求的username信息保存到请求的上下文c上
 		c.Set("username", mc.Username)
 		//c.Set("password", mc.Password)

@@ -3,6 +3,7 @@ package controller
 //数据操作
 import (
 	"context"
+	"fmt"
 	"github.com/cocovs/tiny-douyin/dao/mysql"
 	"github.com/cocovs/tiny-douyin/models"
 	"github.com/cocovs/tiny-douyin/setting"
@@ -84,7 +85,16 @@ func NewVideoList(latest_time int64) ([]models.Video, int64) {
 		mysql.DB.Where("id = ?", userid).First(&usernow)
 		//分别为每个赋予用户结构体
 		value.Author = usernow
-
+		//查询是否点赞 并为该视频赋值 通过搜索
+		userLike := new(models.User_favorite_video)
+		result := mysql.DB.First(userLike, "user_id = ? AND video_id = ?", userid, value.Id)
+		fmt.Println(*userLike)
+		if result.RowsAffected == 1 {
+			//找到
+			value.IsFavorite = true
+		} else {
+			value.IsFavorite = false
+		}
 		//如果该视频为视频库中最后一个视频则返回 现在时间
 		if index == count-1 {
 			timeNow = value.ReleaseTime
@@ -93,19 +103,22 @@ func NewVideoList(latest_time int64) ([]models.Video, int64) {
 			}
 		}
 	}
+	fmt.Println(videosList)
 	return videosList, timeNow
 }
 
 // UserVideoList 获取用户发布视频列表
-func UserVideoList(user *models.User, VideoList []models.Video) []models.Video {
+func UserVideoList(User *models.User) []models.Video {
 	//搜索数据库中所有  Video.UserId == User.Id  的
 	//该用户信息
 
 	//该用户所有视频
-	mysql.DB.Where("user_id = ?", user.Id).Find(&models.Video{})
+	VideoList := make([]models.Video, 0, 0)
+	mysql.DB.Find(&VideoList, "author_id = ?", User.Id)
+
 	//遍历加入用户信息
 	for _, value := range VideoList {
-		value.Author = *user
+		value.Author = *User
 	}
 	return VideoList
 }

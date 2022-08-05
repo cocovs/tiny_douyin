@@ -64,14 +64,14 @@ func Publish(c *gin.Context) {
 // PublishList 根据每个用户的信息来返回视频列表 请求参数token user_id
 func PublishList(c *gin.Context) {
 	//c.Query()
-
-	user := new(models.User)
-	username, _ := c.Get("username")
-	mysql.DB.Find("name = ?", username).First(user)
+	userId := c.Query("user_id")
+	User := new(models.User)
+	mysql.DB.First(User, "id = ?", userId)
+	//fmt.Println("publish User: ", User)
 
 	var VideoList []models.Video
-	VideoList = UserVideoList(user, VideoList)
-
+	VideoList = UserVideoList(User)
+	//fmt.Println("publish video: ", VideoList)
 	c.JSON(http.StatusOK, VideoListResponse{
 		Response: models.Response{
 			StatusCode: 0,
