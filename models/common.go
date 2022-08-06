@@ -10,7 +10,7 @@ type Response struct {
 //视频信息
 type Video struct {
 	Id       int64  `json:"id,omitempty"`
-	AuthorId int64  `json:"author_id,omitempty"` //用户id
+	AuthorId uint64 `json:"author_id,omitempty"` //用户id
 	Author   User   `json:"author"`
 	PlayUrl  string `json:"play_url,omitempty"`
 	//PlayUrl       string `json:"play_url" json:"play_url,omitempty"`
@@ -34,7 +34,7 @@ type Comment struct {
 
 // User 用户信息
 type User struct {
-	Id            int64  `json:"id,omitempty"`
+	Id            uint64 `json:"id,omitempty"`
 	Name          string `json:"name,omitempty"`
 	FollowCount   int64  `json:"follow_count,omitempty"`
 	FollowerCount int64  `json:"follower_count,omitempty"`
@@ -47,6 +47,6 @@ type User struct {
 
 // UserLike 用户点赞视频关系
 type User_favorite_video struct {
-	User_id  int64 `json:"user_id",omitempty`
-	Video_id int64 `json:"video_id",omitempty`
+	User_id  uint64 `json:"user_id",omitempty`
+	Video_id int64  `json:"video_id",omitempty`
 }

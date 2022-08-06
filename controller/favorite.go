@@ -88,7 +88,7 @@ func FavoriteList(c *gin.Context) {
 }
 
 // 查询用户存在
-func isUserExists(username string) int64 {
+func isUserExists(username string) uint64 {
 	user := new(models.User)
 	mysql.DB.First(user, "name = ?", username)
 	return user.Id

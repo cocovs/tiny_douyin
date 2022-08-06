@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"github.com/cocovs/tiny-douyin/pkg/snowflake"
 	"github.com/cocovs/tiny-douyin/setting"
 	"github.com/gin-gonic/gin"
 )
@@ -8,7 +10,10 @@ import (
 func main() {
 	//加载配置文件
 	setting.Setini()
-
+	if err := snowflake.Init(1); err != nil {
+		fmt.Printf("init snowflake failed, err:%v\n", err)
+		return
+	}
 	//主函数最后关闭数据库，否则可能会意外关闭
 	//defer mysql.Close()
 	//默认引擎

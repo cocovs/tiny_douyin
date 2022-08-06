@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/cocovs/tiny-douyin/dao/mysql"
 	"github.com/cocovs/tiny-douyin/models"
+	"github.com/cocovs/tiny-douyin/pkg/snowflake"
 	"github.com/cocovs/tiny-douyin/setting"
 	"io"
 	"net/http"
@@ -36,8 +37,13 @@ import (
 // NewUser 上传用户信息到users表
 func NewUser(username string, password string) (newUser models.User) {
 	//fmt.Println("这里是新增用户")
+	id, err := snowflake.GetID()
+	if err != nil {
+		fmt.Println("雪花算法生成错误")
+	}
+
 	newUser = models.User{
-		//id 自增长 之后添加雪花算法生成id
+		Id:            id,
 		Name:          username,
 		FollowCount:   0,
 		FollowerCount: 0,
@@ -51,7 +57,7 @@ func NewUser(username string, password string) (newUser models.User) {
 }
 
 // NewVideo 上传视频信息到videos表
-func NewVideo(dataName string, userID int64) /*(newVideo Video)*/ {
+func NewVideo(dataName string, userID uint64) /*(newVideo Video)*/ {
 	//需要传入用户id 和 视频访问url
 	newVideo := models.Video{
 		AuthorId: userID,

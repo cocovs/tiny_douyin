@@ -4,7 +4,7 @@ import "github.com/cocovs/tiny-douyin/models"
 
 type UserLoginResponse struct {
 	models.Response
-	UserId int64  `json:"user_id,omitempty"`
+	UserId uint64 `json:"user_id,omitempty"`
 	Token  string `json:"token"`
 }
 

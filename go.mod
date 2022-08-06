@@ -7,6 +7,7 @@ require (
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/jinzhu/gorm v1.9.16
+	github.com/sony/sonyflake v1.0.0
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.35
 	gopkg.in/ini.v1 v1.66.5
 	gorm.io/driver/mysql v1.3.5
